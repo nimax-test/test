@@ -1,0 +1,52 @@
+<? if ($this->rates) : ?>
+    <? foreach ($this->rates as $rate) : ?>
+        <label class="btn" title="<?= $rate->Name ?>">
+            <input type="checkbox" <?= ($rate->Show == 1 ? 'checked' : '') ?>>
+            <?= $rate->CharCode ?>
+        </label>
+    <? endforeach ?>
+<? endif; ?>
+<hr>
+<?= $this->comment ?>
+<br>
+<br>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Currency
+            </th>
+            <th>
+                Nominal
+            </th>            
+            <th>
+                Name
+            </th>
+            <th>
+                Value
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <? if ($this->rates) : ?>
+            <? foreach ($this->rates as $rate) : ?>
+                <? if ($rate->Show == 1) : ?>
+                    <tr>
+                        <td>
+                            <?= $rate->CharCode ?>
+                        </td>
+                        <td>
+                            <?= $rate->Nominal ?>
+                        </td>
+                        <td>
+                            <?= $rate->Name ?>
+                        </td>
+                        <td>
+                            <?= $rate->Value ?>
+                        </td>
+                    </tr>
+                <? endif ?>
+            <? endforeach ?>
+        <? endif; ?>
+    </tbody>
+</table>

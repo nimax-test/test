@@ -1,0 +1,7 @@
+#ajax{
+    z-index: 100;
+    left:0;right:0;
+    top:0;bottom:0;
+    position: fixed;
+    background: url(../img/ajax.gif) no-repeat center center rgba(0,0,0,0.4);
+}
