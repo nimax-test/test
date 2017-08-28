@@ -5,46 +5,29 @@ class RatesController extends Zend_Controller_Action {
 
     // курсы валют выводимые по умолчанию
     protected $codes = ['USD', 'EUR', 'BYN', 'UAH',];
-    // источник данных для котировок
-    protected $source;
+    // провайдер источников данных
+    protected $provider;
 
-    // инициация моделей
+    // инициация
     public function init() {
-        Zend_Loader::loadClass('Rates');
-        Zend_Loader::loadClass('Kazahbank');
-        Zend_Loader::loadClass('Centrobank');
-        $this->source = new Centrobank; // источник
-        //  ы$this->source = new Kazahbank; // другой источник
+        $config = 'configs/application.ini';
+        $config = new Zend_Config_Ini($config);
+        $source = $config->development->defaultsource;
+        Zend_Loader::loadClass('Provider'); // провайдер источников
+        $this->provider = new Provider($source); // дефолтный источник
+        $this->view->codes = $this->_getParam('codes') ?: $this->codes;
     }
 
     public function indexAction() {
-        $this->getRates(); // локальные данные
+        $this->provider->updateData(); // из кэша
+        $this->view->rates = $this->provider->data; // данные
+        $this->view->status = $this->provider->status; // статус
     }
 
     public function updateAction() {
-        $this->getRates(true); // первоисточник
-    }
-
-    // общий функционал получения данных
-    public function getRates($update = false) {
-        $date = date('Y-m-d'); // текущая дата
-        if ($update) { // данные источника
-            $this->source->updateData($date);
-        }
-
-        $rates = new Rates; // данные из базы
-        $data = $rates->getData($this->source->title, $date);
-
-        if (!count($data)) {
-            $update = true; // обновляем
-            $this->source->updateData($date);
-            $data = $rates->getData($this->source->title, $date);
-        }
-
-        $update = $update ? '- Update' : '';
-        $this->view->rates = $data; // данные для вывода    
-        $this->view->codes = $this->_getParam('codes') ?: $this->codes;
-        $this->view->comment = "{$date} - {$this->source->title} {$update}";
+        $this->provider->updateData(true); // обновляем
+        $this->view->rates = $this->provider->data; // данные
+        $this->view->status = $this->provider->status; // статус
         $this->render('index'); // используем один шаблон для вывода данных
     }
 
