@@ -9,6 +9,7 @@ defined('APPLICATION_PATH') || define('APPLICATION_PATH', realpath(dirname(__FIL
 // Ensure library && all classes is on include_path
 set_include_path(implode(PATH_SEPARATOR, array(
     realpath(APPLICATION_PATH . '/../library'),
+    realpath(APPLICATION_PATH . '/sources'),
     realpath(APPLICATION_PATH . '/models'),
     realpath(APPLICATION_PATH),
     get_include_path(),
@@ -19,6 +20,12 @@ require_once 'Zend/Application.php';
 
 // Create application & bootstrap
 $application = new Zend_Application(APPLICATION_ENV, APPLICATION_PATH . '/configs/application.ini');
+
+// Zend_Cache_Core
+$backendOptions = ['cache_dir' => APPLICATION_PATH . "/../public/cache"];
+$frontendOptions = ['lifetime' => 86400, 'automatic_serialization' => true];
+$cache = Zend_Cache::factory('Core', 'File', $frontendOptions, $backendOptions);
+Zend_Registry::set('cache', $cache);
 
 // MySQL database connection params
 $db = Zend_Db::factory('pdo_mysql', array(

@@ -18,7 +18,7 @@ $(function () {
 
 // список валют
 function checkCodes() {
-    var codes = []; // массив отмеченных кодов валют для загрузки
+    var codes = []; // массив отмеченных кодов валют для загрузкиs
     $("input:checked").parent().each(function (index, element) {
         code = $(element).text().replace(/\s/g, '');
         codes.push(code); // отмеченные

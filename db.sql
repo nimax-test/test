@@ -19,13 +19,12 @@ USE `test`;
 -- Дамп структуры для таблица test.rates
 CREATE TABLE IF NOT EXISTS `rates` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `valuteid` text NOT NULL,
-  `numcode` text NOT NULL,
-  `charcode` text NOT NULL,
+  `source` text NOT NULL,
+  `date` text NOT NULL,
+  `code` text NOT NULL,
   `nominal` text NOT NULL,
   `name` text NOT NULL,
   `value` text NOT NULL,
-  `date` text NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

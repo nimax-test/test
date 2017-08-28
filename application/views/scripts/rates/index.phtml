@@ -1,8 +1,8 @@
 <? if ($this->rates) : ?>
     <? foreach ($this->rates as $rate) : ?>
-        <label class="btn" title="<?= $rate->Name ?>">
-            <input type="checkbox" <?= ($rate->Show == 1 ? 'checked' : '') ?>>
-            <?= $rate->CharCode ?>
+        <label class="btn" title="<?= $rate['name'] ?>">
+            <input type="checkbox" <?= (in_array($rate['code'], $this->codes) ? 'checked' : '') ?>>
+            <?= $rate['code'] ?>
         </label>
     <? endforeach ?>
 <? endif; ?>
@@ -30,19 +30,19 @@
     <tbody>
         <? if ($this->rates) : ?>
             <? foreach ($this->rates as $rate) : ?>
-                <? if ($rate->Show == 1) : ?>
+                <? if (in_array($rate['code'], $this->codes)) : ?>
                     <tr>
                         <td>
-                            <?= $rate->CharCode ?>
+                            <?= $rate['code'] ?>
                         </td>
                         <td>
-                            <?= $rate->Nominal ?>
+                            <?= $rate['nominal'] ?>
                         </td>
                         <td>
-                            <?= $rate->Name ?>
+                            <?= $rate['name'] ?>
                         </td>
                         <td>
-                            <?= $rate->Value ?>
+                            <?= $rate['value'] ?>
                         </td>
                     </tr>
                 <? endif ?>
