@@ -6,7 +6,7 @@ class Rates extends Zend_Db_Table {
     // таблица в базе данных
     protected $_name = 'rates';
 
-    // идентификатор для кэшаs
+    // идентификатор для кэша
     private function cacheId($source, $date) {
         return $id = $source . ((int) $date);
     }

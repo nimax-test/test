@@ -8,7 +8,7 @@ class Kazahbank {
     // url c котировками валют Нацбанка Казахстана
     protected $url = 'http://www.nationalbank.kz/rss/get_rates.cfm';
 
-    // контруктор класса
+    // конструктор класса
     public function __construct() {
         
     }

@@ -8,7 +8,7 @@ class Centrobank {
     // url для получения XML c котировками валют Центробанка
     protected $url = 'https://www.cbr-xml-daily.ru/daily.xml';
 
-    // контруктор класса
+    // конструктор класса
     public function __construct() {
         
     }
