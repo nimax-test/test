@@ -8,11 +8,16 @@ class Provider {
 
     // подключение нужных источников
 
-    public function __construct($default = true) {
+    public function __construct() {
         Zend_Loader::loadClass('Rates'); // таблица
         Zend_Loader::loadClass('Kazahbank'); // источник
         Zend_Loader::loadClass('Centrobank'); // источник
-        $this->source = $default ? new Centrobank : new Kazahbank;
+
+        $config = 'configs/application.ini';
+        $config = new Zend_Config_Ini($config); // дефолтный
+        $default = $config->development->defaultsource; // источник
+
+        $this->source = $default ? new Centrobank : new Kazahbank; // ЦБ
     }
 
     // функционал загрузки и обновления данных

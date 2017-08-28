@@ -10,11 +10,8 @@ class RatesController extends Zend_Controller_Action {
 
     // инициация
     public function init() {
-        $config = 'configs/application.ini';
-        $config = new Zend_Config_Ini($config);
-        $source = $config->development->defaultsource;
-        Zend_Loader::loadClass('Provider'); // провайдер источников
-        $this->provider = new Provider($source); // дефолтный источник
+        Zend_Loader::loadClass('Provider'); // провайдер
+        $this->provider = new Provider(); // источников данных
         $this->view->codes = $this->_getParam('codes') ?: $this->codes;
     }
 
