@@ -23,10 +23,10 @@ class Centrobank {
                 $data[] = [
                     'date' => $date,
                     'name' => $rate->Name,
-                    'value' => $rate->Value,
                     'source' => $this->title,
                     'code' => $rate->CharCode,
                     'nominal' => $rate->Nominal,
+                    'value' => str_replace(",", ".", $rate->Value),
                 ];
             }
             $rates->updateData($this->title, $date, $data);

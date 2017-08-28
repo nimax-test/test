@@ -20,11 +20,11 @@ USE `test`;
 CREATE TABLE IF NOT EXISTS `rates` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `source` text NOT NULL,
-  `date` text NOT NULL,
+  `date` date NOT NULL,
   `code` text NOT NULL,
-  `nominal` text NOT NULL,
+  `nominal` int(11) NOT NULL,
   `name` text NOT NULL,
-  `value` text NOT NULL,
+  `value` decimal(10,4) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
