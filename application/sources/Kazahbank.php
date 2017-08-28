@@ -1,6 +1,6 @@
-
 <?php
 
+// XML-сервис
 class Kazahbank {
 
     // для базы данных
