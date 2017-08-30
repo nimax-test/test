@@ -8,9 +8,9 @@ class Rates extends Zend_Db_Table {
 
     // пишем данные в базу
     public function updateData($source, $date, $data) {
-        $where = "source = '{$source}' AND date = '{$date}'";
-        $this->delete($where); // сперва удаляем старые данные
-        foreach ($data as $row) { // и затем пробегаемся для проверки
+        $where = ["source = ?" => $source, "date = ?" => $date];
+        $this->delete($where); // сперва удаляем из базы старые данные
+        foreach ($data as $row) { // и затем пробегаемся для проверки новых
             if ($row['code'] && $row['nominal'] && $row['name'] && $row['value']) {
                 $row['value'] = str_replace(",", ".", $row['value']); // float
                 $this->insert($row); // пишем новые

@@ -2,13 +2,14 @@
 
 class Provider {
 
-    public $id; // id кэша
     public $data; // данные
-    public $cache; // кэш Zend
-    public $status; // результат
+    public $status; // статус    
+    protected $id; // для кэша
+    protected $cache; // кэш Zend
     protected $source; // источник
 
     // подключение нужных источников
+
     public function __construct() {
         Zend_Loader::loadClass('Xml'); // Xml
         Zend_Loader::loadClass('Rates'); // таблица
