@@ -19,13 +19,14 @@ USE `test`;
 -- Дамп структуры для таблица test.rates
 CREATE TABLE IF NOT EXISTS `rates` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `source` text NOT NULL,
-  `date` date NOT NULL,
-  `code` text NOT NULL,
-  `nominal` int(11) NOT NULL,
-  `name` text NOT NULL,
-  `value` decimal(10,4) NOT NULL,
-  PRIMARY KEY (`id`)
+  `source` char(50) NOT NULL COMMENT 'Источник данных',
+  `date` date NOT NULL COMMENT 'Дата актуальности',
+  `code` char(3) NOT NULL COMMENT 'Код валюты',
+  `nominal` int(11) NOT NULL COMMENT 'Номинал',
+  `name` char(100) NOT NULL COMMENT 'Валюта',
+  `value` decimal(10,4) NOT NULL COMMENT 'Курс',
+  PRIMARY KEY (`id`),
+  KEY `in_rates$source$date` (`source`,`date`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Экспортируемые данные не выделены.

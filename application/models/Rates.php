@@ -8,13 +8,15 @@ class Rates extends Zend_Db_Table {
 
     // идентификатор для кэша
     private function cacheId($source, $date) {
-        return $id = $source . ((int) $date);
+        $date = str_replace("-", "", $date);
+        $id = "{$source}{$date}";
+        return $id;
     }
 
     // обновление кэша
     private function cacheUpdate($source, $date) {
         $caсhe = Zend_Registry::get('cache');
-        $id = $this->cacheId($source, date);
+        $id = $this->cacheId($source, $date);
         $caсhe->remove($id);
     }
 
@@ -32,7 +34,7 @@ class Rates extends Zend_Db_Table {
 
     // выборка по источнику и дате
     public function getData($source, $date) {
-        $id = $this->cacheId($source, date); // id 
+        $id = $this->cacheId($source, $date); // id
         $caсhe = Zend_Registry::get('cache'); // кэш
         if (!$data = $caсhe->load($id)) { // проверяем кэш
             $select = $this->select(); // выборка по источнику и дате
